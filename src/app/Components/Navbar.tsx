@@ -1,16 +1,19 @@
 'use client';
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import Logo from '/public/Logo.png'
-import { ShoppingCart } from 'lucide-react';
-import { Search } from 'lucide-react';
+// import Logo from '/public/Logo.png'
+import { Divide, ShoppingCart } from 'lucide-react';
+// import { Search } from 'lucide-react';
 import { Menu } from 'lucide-react';
 import MobileNavbar from './MobileNavbar';
 import Link from 'next/link';
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '@/app/Store/Store';
-import { motion } from 'framer-motion'
-import { getCartTotal } from '@/app/Store/Slice/cartSlice';
+import cart from "/public/Images/cart.png"
+import account from "/public/Images/account.png"
+import search from "/public/Images/search.png"
+// import { useDispatch, useSelector } from 'react-redux'
+// import { RootState } from '@/app/Store/Store';
+// import { motion } from 'framer-motion'
+// import { getCartTotal } from '@/app/Store/Slice/cartSlice';
 type ParentType = {
     showMobileNav: boolean,
     setShowMobileNav: React.Dispatch<React.SetStateAction<boolean>>
@@ -19,60 +22,120 @@ type ParentType = {
 
 export default function Navbar() {
     const [showMobileNav, setShowMobileNav] = useState<boolean>(false)
-    const { items, totalQuantity } = useSelector((state: RootState) => state.cart);
-    const fullCartStore = useSelector((state: RootState) => state.cart);
+    const [position, setPosition] = useState(false);
+    function AppearNavbar() {
+        if (window.scrollY >= 200) {
+            setPosition(true);
+        }
+        else if (window.scrollY <= 200) {
+            setPosition(false);
+        }
 
-    const dispatch = useDispatch()
+    }
     useEffect(() => {
-        dispatch(getCartTotal());
-    }, [items])
-    return (
-        <>
-            <main className='w-full flex items-center justify-center py-10 max-[550px]:py-[2.5rem] '>
-                <div className='w-[75rem] flex items-center justify-between mx-6'>
-                    <Link href={'/'}><Image alt='Logo' src={Logo} priority /></Link>
-                    {/* Nav-links */}
-                    <motion.ul className='flex items-center justify-between gap-x-8 max-lg:gap-x-6 max-[920px]:hidden'>
-                        <li className='text-[15px] hover:opacity-80 cursor-pointer select-none'>
-                            <Link href={'/NavCategory/Female'}>Female</Link>
-                        </li>
-                        <li className='text-[15px] hover:opacity-80 cursor-pointer select-none'>
-                            <Link href={'/NavCategory/Male'}>Male</Link>
-                        </li>
-                        <li className='text-[15px] hover:opacity-80 cursor-pointer select-none'>
-                            <Link href={'/NavCategory/Kids'}>Kids</Link>
-                        </li>
-                        <li className='text-[15px] hover:opacity-80 cursor-pointer select-none'>
-                            <Link href={'/AllProducts'}>AllProducts</Link>
-                        </li>
-                    </motion.ul>
+        window.addEventListener('scroll', AppearNavbar);
 
-                    <label htmlFor="search" className='max-[920px]:hidden'>
-                        <Search className='w-[1rem] absolute ml-2' />
-                        <input className='w-[18rem] border border-[rgb(153,153,153)] h-[1.55rem] focus:outline-none pl-8 pr-2 rounded-lg py-1 placeholder:text-[14px]' placeholder='Search' type="search" id='search' />
-                    </label>
-                    <Link href={'/CartPage'} className='max-[920px]:hidden w-[2rem] h-[2rem] p-[5px] cursor-pointer duration-300'>
-                        {
-                            totalQuantity === 0 ? '' :
-                                <motion.span className='w-[1.2rem] h-[1.2rem] grid place-items-center rounded-full text-[12px] bg-red-600 text-white absolute top-[2rem] font-semibold '
-                                initial={{scale: 0}}
-                                whileInView={{scale: 1}}
-                                transition={{duration: 0.2}}
-                                >
-                                    {totalQuantity}
-                                </motion.span>
-                        }
-                        <div >
-                            <ShoppingCart className='w-full h-full' />
+    })
+    // const { items, totalQuantity } = useSelector((state: RootState) => state.cart);
+    // const fullCartStore = useSelector((state: RootState) => state.cart);
+
+    // const dispatch = useDispatch()
+    // useEffect(() => {
+    //     dispatch(getCartTotal());
+    // }, [items])
+    return (
+        <div>
+
+            <main id='nav' className='flex items-center justify-center py-8 max-[840px]:py-7'>
+                <nav className=" duration-700 w-full flex items-center justify-center">
+                    <div className='w-[85rem] min-[1600px]:w-full flex items-center justify-between mx-6 min-[1600px]:mx-[7.5rem]'>
+                        <h1>
+                            <span className='text-black text-[1.7rem] font-semibold'>Time</span>
+                            <span className=' text-[--Primary-Color] text-[1.7rem] font-semibold'>Store</span>
+                        </h1>
+                        <ul className='flex items-center justify-between gap-x-14 max-lg:gap-x-8 max-[840px]:hidden'>
+                            <li className='text-[16px] font-semibold hover:text-[--Primary-Color] duration-200 cursor-pointer select-none'>
+                                <Link href={'/NavCategory/Female'}>Home</Link>
+                            </li>
+                            <li className='text-[16px] font-semibold hover:text-[--Primary-Color] duration-200 cursor-pointer select-none'>
+                                <Link href={'/NavCategory/Kids'}>About</Link>
+                            </li>
+                            <li className='text-[16px] font-semibold hover:text-[--Primary-Color] duration-200 cursor-pointer select-none'>
+                                <Link href={'/NavCategory/Male'}>Shop</Link>
+                            </li>
+                            <li className='text-[16px] font-semibold hover:text-[--Primary-Color] duration-200 cursor-pointer select-none'>
+                                <Link href={'/AllProducts'}>Latest</Link>
+                                <span className='w-[2.3rem] h-[1.3rem] pt-[5px] text-center align-text-center absolute rounded-lg translate-y-[-1.5rem] translate-x-[-10px] bg-[--Primary-Color] shadow-sm shadow-[rgb(150,150,150)] text-[9px] text-white font-bold tracking-wider '>HOT</span>
+                            </li>
+
+                            <li className='text-[16px] font-semibold hover:text-[--Primary-Color] duration-200 cursor-pointer select-none'>
+                                <Link href={'/AllProducts'}>Contact</Link>
+                            </li>
+                        </ul>
+                        <div className='flex flex-row gap-6 max-[840px]:hidden'>
+                            <Image alt='/' className='w-[1.2rem] cursor-pointer' src={search} />
+                            <Image alt='/' className='w-[1.2rem] cursor-pointer' src={account} />
+                            <Link href={'/CartPage'}>
+                                <Image alt='/' className='w-[1.2rem] cursor-pointer' src={cart} />
+                            </Link>
                         </div>
-                    </Link>
-                    {/* Only for Mobile */}
-                    <Menu onClick={() => { setShowMobileNav(true) }} className='hidden max-[920px]:block cursor-pointer' />
-                </div>
+                        {/* Only for Mobile */}
+                        <Menu onClick={() => { setShowMobileNav(true) }} className='hidden max-[840px]:block cursor-pointer' />
+                    </div>
+                </nav>
             </main>
-            <main className={`bg-white flex items-center justify-center height width ml-2 fixed top-0 duration-700 z-10  ${showMobileNav ? 'translate-y-[0] shadow-lg shadow-[rgb(150,150,150)]' : 'translate-y-[-100%]'}`}>
+            <main className={position ? 'bg-white fixed top-0 shadow-xl shadow-[rgba(0,0,0,0.15)] translate-y-0 duration-700 w-full flex items-center  justify-center py-8 max-[561px]:py-7' : "absolute top-0 translate-y-[-100%]  w-full flex items-center  justify-center bg-white py-8 max-[561px]:py-7"}>
+                <nav className=' w-full flex items-center justify-center'>
+
+                    <div className='w-[85rem] min-[1600px]:w-full flex items-center justify-between mx-6 min-[1600px]:mx-[7.5rem]'>
+                        <h1>
+                            <span className='text-black text-[1.7rem] font-semibold'>Time</span>
+                            <span className=' text-[--Primary-Color] text-[1.7rem] font-semibold'>Store</span>
+                        </h1>
+                        <ul className='flex items-center justify-between gap-x-14 max-lg:gap-x-8 max-[840px]:hidden'>
+                            <li className='text-[16px] font-semibold hover:text-[--Primary-Color] duration-200 cursor-pointer select-none'>
+                                <Link href={'/NavCategory/Female'}>Home</Link>
+                            </li>
+                            <li className='text-[16px] font-semibold hover:text-[--Primary-Color] duration-200 cursor-pointer select-none'>
+                                <Link href={'/NavCategory/Kids'}>About</Link>
+                            </li>
+                            <li className='text-[16px] font-semibold hover:text-[--Primary-Color] duration-200 cursor-pointer select-none'>
+                                <Link href={'/NavCategory/Male'}>Shop</Link>
+                            </li>
+                            <li className='text-[16px] font-semibold hover:text-[--Primary-Color] duration-200 cursor-pointer select-none'>
+                                <Link href={'/AllProducts'}>Latest</Link>
+                                <span className='w-[2.3rem] h-[1.3rem] pt-[5px] text-center align-text-center absolute rounded-lg translate-y-[-1.5rem] translate-x-[-10px] bg-[--Primary-Color] shadow-sm shadow-[rgb(150,150,150)] text-[9px] text-white font-bold tracking-wider'>HOT</span>
+                            </li>
+
+                            <li className='text-[16px] font-semibold hover:text-[--Primary-Color] duration-200 cursor-pointer select-none'>
+                                <Link href={'/AllProducts'}>Contact</Link>
+                            </li>
+                        </ul>
+                        <div className='flex flex-row gap-6 max-[840px]:hidden'>
+                            <Image alt='/' className='w-[1.2rem] cursor-pointer' src={search} />
+                            <Image alt='/' className='w-[1.2rem] cursor-pointer' src={account} />
+                            <Link href={'/CartPage'}>
+                                <Image alt='/' className='w-[1.2rem] cursor-pointer' src={cart} />
+                            </Link>
+                        </div>
+                        {/* Only for Mobile */}
+                        <Menu onClick={() => { setShowMobileNav(true) }} className='hidden max-[840px]:block cursor-pointer' />
+                    </div>
+                </nav>
+            </main>
+            <main className={`flex items-center rounded-l-[2rem] justify-center h-screen width ml-2 fixed top-0 duration-700 z-10  ${showMobileNav ? 'translate-x-[0] shadow-xl shadow-[rgba(0,0,0,0.5)]' : 'translate-x-[100%]'}`}>
                 <MobileNavbar showMobileNav={showMobileNav} setShowMobileNav={setShowMobileNav} />
             </main>
-        </>
+        </div>
     )
 }
+
+
+{/* totalQuantity === 0 ? '' :
+<motion.span className='w-[1.2rem] h-[1.2rem] grid place-items-center rounded-full text-[12px] bg-red-600 text-white absolute top-[2rem] font-semibold '
+initial={{scale: 0}}
+whileInView={{scale: 1}}
+transition={{duration: 0.2}}
+>
+{totalQuantity}
+</motion.span> */}
