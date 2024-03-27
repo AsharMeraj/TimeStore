@@ -1,13 +1,13 @@
 import React from 'react'
 type PropType = {
     name: string
-    w: string
-    h: string
+    // px: string
+    // py: string
 }
 
 const Button = (props: PropType) => {
   return (
-    <button className='bg-[--Primary-Color] text-white font-semibold' style={{width: `${props.w}`, height: `${props.h}`}}>{props.name}</button>
+    <button className={`w-fit bg-[--Primary-Color] text-white font-semibold px-[2rem] py-[1rem]`}>{props.name}</button>
   )
 }
 

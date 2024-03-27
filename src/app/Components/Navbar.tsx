@@ -84,7 +84,7 @@ export default function Navbar() {
                     </div>
                 </nav>
             </main>
-            <main className={position ? 'bg-white fixed top-0 shadow-xl shadow-[rgba(0,0,0,0.15)] translate-y-0 duration-700 w-full flex items-center  justify-center py-8 max-[561px]:py-7' : "absolute top-0 translate-y-[-100%]  w-full flex items-center  justify-center bg-white py-8 max-[561px]:py-7"}>
+            <main className={position ? 'bg-white fixed top-0 shadow-xl shadow-[rgba(0,0,0,0.15)] translate-y-0 duration-700 w-full flex items-center  justify-center py-8 max-[561px]:py-7 z-10' : "absolute top-0 translate-y-[-100%]  w-full flex items-center  justify-center bg-white py-8 max-[561px]:py-7 z-10"}>
                 <nav className=' w-full flex items-center justify-center'>
 
                     <div className='w-[85rem] min-[1600px]:w-full flex items-center justify-between mx-6 min-[1600px]:mx-[7.5rem]'>
@@ -123,7 +123,7 @@ export default function Navbar() {
                     </div>
                 </nav>
             </main>
-            <main className={`flex items-center rounded-l-[2rem] justify-center h-screen width ml-2 fixed top-0 duration-700 z-10  ${showMobileNav ? 'translate-x-[0] shadow-xl shadow-[rgba(0,0,0,0.5)]' : 'translate-x-[100%]'}`}>
+            <main className={`flex items-center rounded-l-[2rem] justify-center h-screen width ml-2 fixed top-0 duration-700 z-10  ${showMobileNav ? 'translate-x-[0] ' : 'translate-x-[100%]'}`}>
                 <MobileNavbar showMobileNav={showMobileNav} setShowMobileNav={setShowMobileNav} />
             </main>
         </div>

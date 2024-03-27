@@ -3,6 +3,8 @@ import Navbar from "./Components/Navbar";
 import HomePage from "./Components/HomePage";
 import About from "./Components/About";
 import Arrival from "./Components/Arrival";
+import Showcase from "./Components/Showcase";
+import Slider from "./Components/SliderMenu";
 
 export default function Home() {
   return (
@@ -11,6 +13,8 @@ export default function Home() {
       <HomePage/>
       <About/>
       <Arrival/>
+      <Showcase/> 
+      <Slider/>
     </main>
   );
 }
